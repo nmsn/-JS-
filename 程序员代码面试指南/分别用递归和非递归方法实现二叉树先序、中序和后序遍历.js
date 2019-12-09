@@ -17,8 +17,7 @@ const preOrderRecur = (head) => {
   if (!head) {
     return ;
   }
-  
-  // 当前节点
+
   console.log(head.value);
   
   preOrderRecur(head.left);
@@ -31,8 +30,7 @@ const inOrderRecur = (head) => {
   }
   
   inOrderRecur(head.left);
-  
-  // 当前节点
+
   console.log(head.value);
   
   inOrderRecur(head.right);
@@ -45,8 +43,7 @@ const posOrderRecur = (head) => {
   
   posOrderRecur(head.left);
   posOrderRecur(head.right);
-  
-    // 当前节点
+
     console.log(head.value);
 };
 
@@ -58,16 +55,16 @@ const preOrderUnRecur = (head) => {
     const stack = [];
 
     stack.push(head);
-    
+
     while (stack.length) {
       head = stack.pop();
-      
-      console.log(head);
-      
+
+      console.log(head.value);
+
       if (head.right) {
         stack.push(head.right);
       }
-      
+
       if (head.left) {
         stack.push(head.left);
       }
@@ -84,8 +81,55 @@ const  inOrderUnRecur = (head) => {
         head = head.left;
       } else {
         head = stack.pop();
-        console.log(head);
+        console.log(head.value);
         head = head.right;
+      }
+    }
+  }
+};
+
+const posOrderUnRecur1 = (head) => {
+  if (head) {
+    const s1 = [];
+    const s2 = [];
+    s1.push(head);
+
+    while (s1.length) {
+      head = s1.pop();
+
+      s2.push(head);
+
+      if (head.left) {
+        s1.push(head.left);
+      }
+
+      if (head.right) {
+        s1.push(head.right);
+      }
+    }
+
+    while (s2.length) {
+      console.log(s2.pop());
+    }
+  }
+};
+
+
+// 一个栈解决后序遍历
+const posOrderRecur2 = (h) => {
+  if(h) {
+    const stack = [];
+    stack.push(h);
+    let c = null;
+    
+    while (stack.length) {
+      if (c.left && h !== c.left && h !== c.right) {
+        stack.push(c.left);
+      } else if (c.right && h !== c.right) {
+        stack.push(c.right);
+      } else {
+        console.log(stack.pop());
+        h = c;
       }
     }
   }
