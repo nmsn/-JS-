@@ -19,6 +19,8 @@ class Node {
   }
 }
 
+// 标准1
+
 const printEdge1 = (head) => {
   if (!head) {
     return ;
@@ -78,4 +80,47 @@ const printLeafNotMap = (h, l, m) => {
 
   printLeafNotMap(h.left, l + 1, m);
   printLeafNotMap(h.right, l + 1, m);
+};
+
+// 标准2
+
+const printEdge2 = (head) => {
+  if (head === null) {
+    return ;
+  }
+  
+  console.log(head.value);
+  
+  if (head.left && head.right) {
+    printLeftEdge(head.left, true);
+    printRightEdge(head.right, true);
+  } else {
+    printEdge2(head.left ? head.left : head.right);
+  }
+};
+
+const printLeftEdge = (h, print) => {
+  if (!h) {
+    return ;
+  }
+  
+  if (print || (!h.left || !h.right)) {
+    console.log(h.value);
+  }
+
+  printLeftEdge(h.left, print);
+  printLeftEdge(h.right, print && !h.left)
+};
+
+const prinRightEdge = (h, print) => {
+  if (!h) {
+    return ;
+  }
+  
+  printRightEdge(h.left, print && !h.right);
+  prinRightEdge(h.right, print);
+  
+  if (print || (!h.left && !h.right)) {
+    console.log(h.value);
+  }
 };
