@@ -3,7 +3,7 @@
  * 路径上所有的数字累加起来就是路径和，返回所有的路径中最小的路径和
  */
 
-const minPathSuml = (m) => {
+const minPathSum1 = (m) => {
   if (!m || m.length === 0 || !m[0] || m[0].length === 0) {
     return 0;
   }
@@ -29,4 +29,32 @@ const minPathSuml = (m) => {
   }
   
   return dp[row - 1][col - 1];
+};
+
+const minPathSum2 = (m) => {
+  if (!m || m.length === 0 || !m[0] || m[0].length === 0) {
+    return 0;
+  }
+  
+  let more = Math.max(m.length, m[0].length);
+  let less = Math.min(m.length, m[0].length);
+  
+  const rowmore = more === m.length;
+  
+  const arr = [];
+  
+  arr[0] = m[0][0];
+  
+  for (let i = 1; i < less; i++) {
+    arr[i] = arr[i - 1] + (rowmore ? m[0][i] : m[i][0]);
+  }
+  
+  for (let i = 1; i < more; i++) {
+    arr[0] = arr[0] + (rowmore ? m[i][0] : m[0][i]);
+    
+    for (let j = 1; j < less; j++) {
+      arr[j] = Math.min(arr[j - 1], arr[j]) + (rowmore? m[i][j] : m[j][i]);
+    }
+  }
+  return arr[less - 1];
 };
