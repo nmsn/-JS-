@@ -11,9 +11,10 @@ const lowestAncestor = (head, o1, o2) => {
   const left = lowestAncestor(head.left , o1, o2);
   const right = lowestAncestor(head.right, o1, o2);
   
-  if (!left && !right) {
+  if (left && right) {
     return head;
   }
   
+  // 只有一个说明是o1、o2之一或者节点就是o1、o2最近的公共祖先节点
   return left || right;
 };
