@@ -1,5 +1,5 @@
-function quickSort(arr, left, right) {
-  var len = arr.length,
+const quickSort = (arr, left, right) => {
+  let len = arr.length,
       partitionIndex,
       left = typeof left != 'number' ? 0 : left,
       right = typeof right != 'number' ? len - 1 : right;
@@ -12,10 +12,10 @@ function quickSort(arr, left, right) {
   return arr;
 }
 
-function partition(arr, left ,right) {     // 分区操作
-  var pivot = left,                      // 设定基准值（pivot）
+const partition = (arr, left ,right) => { // 分区操作
+  let pivot = left, // 设定基准值（pivot）
       index = pivot + 1;
-  for (var i = index; i <= right; i++) {
+  for (let i = index; i <= right; i++) {
       if (arr[i] < arr[pivot]) {
           swap(arr, i, index);
           index++;
@@ -25,34 +25,38 @@ function partition(arr, left ,right) {     // 分区操作
   return index - 1;
 }
 
-function swap(arr, i, j) {
-  var temp = arr[i];
+const swap = (arr, i, j) => {
+  let temp = arr[i];
   arr[i] = arr[j];
   arr[j] = temp;
 }
 
 
-function partition2(arr, low, high) {
-let pivot = arr[low];
-while (low < high) {
-  while (low < high && arr[high] > pivot) {
-    --high;
+const partition2 = (arr, low, high) => {
+  let pivot = arr[low];
+  while (low < high) {
+    while (low < high && arr[high] > pivot) {
+      --high;
+    }
+
+    arr[low] = arr[high];
+
+    while (low < high && arr[low] <= pivot) {
+      ++low;
+    }
+
+    arr[high] = arr[low];
   }
-  arr[low] = arr[high];
-  while (low < high && arr[low] <= pivot) {
-    ++low;
-  }
-  arr[high] = arr[low];
-}
-arr[low] = pivot;
-return low;
+
+  arr[low] = pivot;
+  return low;
 }
 
-function quickSort2(arr, low, high) {
-if (low < high) {
-  let pivot = partition2(arr, low, high);
-  quickSort2(arr, low, pivot - 1);
-  quickSort2(arr, pivot + 1, high);
-}
-return arr;
+const quickSort2 = (arr, low, high) => {
+  if (low < high) {
+    let pivot = partition2(arr, low, high);
+    quickSort2(arr, low, pivot - 1);
+    quickSort2(arr, pivot + 1, high);
+  }
+  return arr;
 }
